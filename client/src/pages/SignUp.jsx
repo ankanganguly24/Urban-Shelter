@@ -1,7 +1,33 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+ const[change , setchange] = useState({});
+ const navigate = useNavigate();
+
+ const handleChange = (e)=>{
+  setchange({...change, 
+    [e.target.id] : e.target.value
+  })
+}
+
+const handlesubmit = async (e) => {
+  e.preventDefault();
+  const res = await fetch('/api/auth/signup', {
+    method: 'POST',
+    headers: {
+      'content-Type': 'application/json',
+    },
+    body: JSON.stringify(change)
+  })
+  const data = await res.json();
+  console.log(data)
+  if (res.ok) {
+    navigate('/signin');
+  }
+};
+
+
   return (
     <div className="mt-11 flex flex-col items-center justify-center ">
 
@@ -11,7 +37,7 @@ const SignUp = () => {
           Sign Up
         </h2>
 
-        <form className="w-full">
+        <form onSubmit={handlesubmit} className="w-full">
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -25,6 +51,7 @@ const SignUp = () => {
               id="username"
               name="username"
               placeholder="Enter your username"
+              onChange={handleChange}
             />
           </div>
 
@@ -41,6 +68,7 @@ const SignUp = () => {
               id="email"
               name="email"
               placeholder="Enter your email"
+              onChange={handleChange}
             />
           </div>
 
@@ -59,6 +87,7 @@ const SignUp = () => {
               id="password"
               name="password"
               placeholder="Enter your password"
+              onChange={handleChange}
             />
           </div>
 
@@ -69,6 +98,8 @@ const SignUp = () => {
             >
               Enter
             </button>
+
+            
 
           </div>
         </form>
