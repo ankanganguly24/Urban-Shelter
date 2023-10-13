@@ -22,10 +22,10 @@ const SignIn = () => {
     });
 
     if (res.ok) {
-      // Handle successful login, e.g., redirect to a dashboard.
+      
       navigate('/dashboard');
     } else {
-      // Handle login failure, e.g., display an error message.
+      
       console.error('Login error:', res.status);
     }
   };
@@ -34,7 +34,7 @@ const SignIn = () => {
     <div className="mt-11 flex flex-col items-center justify-center">
       <div className="bg-white p-6 md:p-8 w-full md:w-80 lg:w-96 max-w-md rounded-lg shadow-md text-brown">
         <h2 className="text-2xl md:text-3xl font-bold text-brown mb-3 text-center">
-          Log In
+          Sign In
         </h2>
         <form onSubmit={handleSubmit} className="w-full">
           <div className="mb-4">
