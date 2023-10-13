@@ -11,8 +11,8 @@ const SignUp = () => {
   })
 }
 
-const handlesubmit = async (e) => {
-  e.preventDefault();
+const handlesubmit = async () => {
+  
   const res = await fetch('/api/auth/signup', {
     method: 'POST',
     headers: {
