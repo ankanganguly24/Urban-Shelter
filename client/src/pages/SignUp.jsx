@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
- const[change , setchange] = useState({});
+ const[ change , setchange] = useState({});
  const navigate = useNavigate();
 
- const handleChange = (e)=>{
-  setchange({...change, 
-    [e.target.id] : e.target.value
+useEffect (()=> {
+  console.log(change);
+},[change])
+
+const handleChange = (e)=>{
+  setchange({
+    ...change, 
+    [e.target.id] : e.target.value,
   })
 }
 
-const handlesubmit = async () => {
+const handlesubmit = async (e) => {
+  e.preventDefault();
   
   const res = await fetch('/api/auth/signup', {
     method: 'POST',
@@ -21,10 +27,16 @@ const handlesubmit = async () => {
     body: JSON.stringify(change)
   })
   const data = await res.json();
-  console.log(data)
-  if (res.ok) {
-    navigate('/signin');
+  console.log(data);
+
+  if (data.success === true) {
+    navigate('/SignIn');
   }
+  
+  else {
+    alert("Invalid Credentials");
+  }
+
 };
 
 
@@ -94,7 +106,7 @@ const handlesubmit = async () => {
           <div className="flex justify-center">
             <button
               className="bg-brown text-white py-2 px-4 rounded-md font-semibold hover:bg-lightbrown hover:shadow-lg transition-transform transform hover:scale-105"
-              type="submit"
+              type="submit" 
             >
               Enter
             </button>
