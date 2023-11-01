@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const SignIn = () => {
-  const [change, setchange] = useState({ email: '', password: '' });
+  const [change, setchange] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,27 +20,27 @@ const SignIn = () => {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-try {
-      const res = await fetch('/api/auth/signin', {
-        method: 'POST',
+    try {
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(change),
       });
-      
+
       if (res.ok) {
-        navigate('/');
+        navigate("/");
       } else {
         const responseData = await res.json();
-        console.error('Login failed:', responseData);
+        console.error("Login failed:", responseData);
       }
-      console.error('Login failed');
-      }   catch (err) {
-      console.error('Login failed:', err);
+      console.error("Login failed");
+    } catch (err) {
+      console.error("Login failed:", err);
     }
-  }
-    
+  };
+
   return (
     <div className="mt-11 flex flex-col items-center justify-center ">
       <div className="bg-white p-6 md:p-8 w-full md:w-80 lg:w-96 max-w-md rounded-lg shadow-md text-brown">
