@@ -1,50 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import OAuth from "../Components/OAuth";
+
 
 const SignUp = () => {
- const[ change , setchange] = useState({});
- const navigate = useNavigate();
+  const [change, setchange] = useState({});
+  const navigate = useNavigate();
 
-useEffect (()=> {
-  console.log(change);
-},[change])
+  useEffect(() => {
+    console.log(change);
+  }, [change]);
 
-const handleChange = (e)=>{
-  setchange({
-    ...change, 
-    [e.target.id] : e.target.value,
-  })
-}
+  const handleChange = (e) => {
+    setchange({
+      ...change,
+      [e.target.id]: e.target.value,
+    });
+  };
 
-const handlesubmit = async (e) => {
-  e.preventDefault();
-  
-  const res = await fetch('/api/auth/signup', {
-    method: 'POST',
-    headers: {
-      'content-Type': 'application/json',
-    },
-    body: JSON.stringify(change)
-  })
-  const data = await res.json();
-  console.log(data);
+  const handlesubmit = async (e) => {
+    e.preventDefault();
 
-  if (data.success === true) {
-    navigate('/SignIn');
-  }
-  
-  else {
-    alert("Invalid Credentials");
-  }
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "content-Type": "application/json",
+      },
+      body: JSON.stringify(change),
+    });
+    const data = await res.json();
+    console.log(data);
 
-};
-
+    if (data.success === true) {
+      navigate("/SignIn");
+    } else {
+      alert("Invalid Credentials");
+    }
+  };
 
   return (
     <div className="mt-11 flex flex-col items-center justify-center ">
-
       <div className="bg-white p-6 md:p-8 w-full md:w-80 lg:w-96 max-w-md rounded-lg shadow-md text-brown">
-
         <h2 className="text-2xl md:text-3xl font-bold text-brown mb-3 text-center ">
           Sign Up
         </h2>
@@ -85,7 +81,6 @@ const handlesubmit = async (e) => {
           </div>
 
           <div className="mb-4">
-
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="password"
@@ -106,29 +101,21 @@ const handlesubmit = async (e) => {
           <div className="flex justify-center">
             <button
               className="bg-brown text-white py-2 px-4 rounded-md font-semibold hover:bg-lightbrown hover:shadow-lg transition-transform transform hover:scale-105"
-              type="submit" 
+              type="submit"
             >
               Enter
             </button>
-
-            
-
           </div>
+        <OAuth />
         </form>
         <div className="flex gap-1 mt-3">
-        <p className="">
-          Already have an account?
-        </p>
-        <Link to={"/signin"}>
-          <span className="underline hover:shadow"> 
-            SignIn
-          </span>
-           </Link>
-
-      </div>
+          <p className="">Already have an account?</p>
+          <Link to={"/signin"}>
+            <span className="underline hover:shadow">SignIn</span>
+          </Link>
+        </div>
       </div>
     </div>
-
   );
 };
 

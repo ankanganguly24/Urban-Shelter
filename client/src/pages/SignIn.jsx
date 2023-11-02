@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import OAuth from "../Components/OAuth";
+
 
 const SignIn = () => {
   const [change, setchange] = useState({ email: "", password: "" });
@@ -88,6 +90,7 @@ const SignIn = () => {
               Enter
             </button>
           </div>
+        <OAuth/>
         </form>
         <div className="flex gap-1 mt-3">
           <p className=""> Dont have an account?</p>
